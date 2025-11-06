@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import TextField from "../ui/TextField";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useCategory } from "../Context/CategoryContext";
 
 function AddNewCategory() {
   const [isOpen, setIsOpen] = useState(false);
-  const [category, setCategory] = useState([]);
+  const { category, dispatch } = useCategory();
 
   const {
     register,
@@ -23,8 +24,8 @@ function AddNewCategory() {
       createdAt: new Date().toISOString(),
     };
     if (newCategory) toast.success("دسته بندی با موفقیت ایجاد شد");
-
-    setCategory((prev) => [...prev, newCategory]);
+    dispatch({ type: "ADD_CATEGORY", payload: newCategory });
+    setIsOpen(false);
   };
 
   return (
@@ -67,17 +68,20 @@ function AddNewCategory() {
                 <button onClick={() => setIsOpen(false)} className="btn btn--secondary flex-1">
                   لغو
                 </button>
-                <button className="btn btn--primary flex-1">اضافه کردن</button>
+                <button type="submit" className="btn btn--primary flex-1">
+                  اضافه کردن
+                </button>
               </div>
             </form>
           </div>
         )}
       </div>
       {!isOpen && (
-        <button onClick={() => setIsOpen((is) => !is)} className="btn btn--secondary mb-6">
+        <button onClick={() => setIsOpen((is) => !is)} className="btn btn--secondary mb-6 ml-4">
           دسته بندی جدید
         </button>
       )}
+      {!isOpen && <button className="btn btn--secondary mb-6">مدیریت دسته بندی ها</button>}
     </div>
   );
 }

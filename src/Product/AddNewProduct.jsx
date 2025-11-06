@@ -3,9 +3,12 @@ import TextField from "../ui/TextField";
 import { useForm } from "react-hook-form";
 import RHFSelect from "../ui/RHFSelect";
 import toast from "react-hot-toast";
+import { useProducts } from "../Context/ProductContext";
+import { useCategory } from "../Context/CategoryContext";
 
 function AddNewProduct() {
-  const [products, setProducts] = useState([]);
+  const { products, dispatch } = useProducts();
+  const { category } = useCategory();
 
   const {
     register,
@@ -14,35 +17,35 @@ function AddNewProduct() {
     formState: { errors },
   } = useForm();
 
-  const options = [
-    {
-      id: 1,
-      title: "دسته بندی اول",
-      desc: "first desc",
-    },
-    {
-      id: 2,
-      title: "دسته بندی دوم",
-      desc: "second desc",
-    },
-    {
-      id: 3,
-      title: "دسته بندی سوم",
-      desc: "third desc",
-    },
-    {
-      id: 4,
-      title: "دسته بندی چهارم",
-      desc: "fourth desc",
-    },
-  ];
+  // const options = [
+  //   {
+  //     id: 1,
+  //     title: "دسته بندی اول",
+  //     desc: "first desc",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "دسته بندی دوم",
+  //     desc: "second desc",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "دسته بندی سوم",
+  //     desc: "third desc",
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "دسته بندی چهارم",
+  //     desc: "fourth desc",
+  //   },
+  // ];
 
   const onSubmit = (data) => {
     const {
       productTitle: title,
       productQuantity: quantity,
       productDesc: description,
-      selectedCategory,
+      category,
     } = data;
 
     const newProducts = {
@@ -50,11 +53,12 @@ function AddNewProduct() {
       title,
       quantity,
       description,
-      selectedCategory,
+      category,
       createdAt: new Date().toISOString(),
     };
+    dispatch({ type: "ADD_PRODUCTS", payload: newProducts });
     if (newProducts) toast.success("محصول با موفقیت ایجاد شد");
-    setProducts((prev) => [...prev, newProducts]);
+
     console.log(newProducts);
   };
 
@@ -110,8 +114,8 @@ function AddNewProduct() {
             label="دسته بندی"
             register={register}
             required
-            name="selectCategory"
-            options={options}
+            name="category"
+            options={category}
             additonalLabelCls="block text-lg mb-1 font-bold text-slate-300 text-right"
           />
         </div>

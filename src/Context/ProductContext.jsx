@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
+import useLocalStorageState from "../hooks/useLocalStorage";
 
 const ProductContext = createContext();
 
@@ -18,7 +19,12 @@ function productReducer(state, action) {
 }
 
 export function ProductProvider({ children }) {
-  const [products, dispatch] = useReducer(productReducer, []);
+  const [storedProducts, setStoredProducts] = useLocalStorageState("products", []);
+  const [products, dispatch] = useReducer(productReducer, storedProducts);
+
+  useEffect(() => {
+    setStoredProducts(products);
+  }, [products, setStoredProducts]);
 
   return (
     <ProductContext.Provider value={{ products, dispatch }}>{children}</ProductContext.Provider>
