@@ -1,8 +1,7 @@
 function Modal({ isOpenModal, setIsOpenModal, title, children }) {
-  if (!isOpenModal) return null; // فقط وقتی بازه نمایش بده
+  if (!isOpenModal) return null; 
 
   const handleBackdropClick = (e) => {
-    // اگر روی بیرون از مودال کلیک شد، ببندش
     if (e.target.id === "modal-backdrop") {
       setIsOpenModal(false);
     }
