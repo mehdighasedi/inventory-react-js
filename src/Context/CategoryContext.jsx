@@ -11,8 +11,9 @@ function categoryReducer(state, action) {
       return state.filter((category) => category.id !== action.payload);
     case "UPDATE_CATEGORY":
       return state.map((category) =>
-        category.id === action.payload.id ? { ...category, ...action.payload } : products,
+        category.id === action.payload.id ? { ...category, ...action.payload } : category,
       );
+
     default:
       throw new Error("خطایی رخ داده است");
   }

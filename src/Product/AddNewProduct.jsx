@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import TextField from "../ui/TextField";
 import { useForm } from "react-hook-form";
 import RHFSelect from "../ui/RHFSelect";
@@ -58,13 +57,13 @@ function AddNewProduct() {
     };
     dispatch({ type: "ADD_PRODUCTS", payload: newProducts });
     if (newProducts) toast.success("محصول با موفقیت ایجاد شد");
-
-    console.log(newProducts);
   };
 
   return (
     <div className="mb-6">
-      <h2 className="text-secondary-400 font-bold text-xl mb-3">اضافه کردن محصول جدید</h2>
+      <h2 className="text-secondary-400 font-bold text-xl mb-3 px-3 border-r-2">
+        اضافه کردن محصول جدید
+      </h2>
       <form
         className="bg-secondary-700 p-4 rounded-xl w-screen-sm flex flex-col gap-y-4"
         onSubmit={handleSubmit(onSubmit)}

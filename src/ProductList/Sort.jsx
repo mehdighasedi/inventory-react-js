@@ -1,64 +1,44 @@
-import { useForm } from "react-hook-form";
-import RHFSelect from "../ui/RHFSelect";
+import Select from "../ui/Select";
 
-function Sort() {
-  const { register, handleSubmit } = useForm();
+function Sort({ category, sortOption, selectedCategory, onSortChange, onCategoryChange }) {
   const sortOptions = [
-    {
-      title: "Newest",
-      id: 1,
-    },
-    {
-      title: "Oldest",
-      id: 2,
-    },
-    {
-      title: "Quantity",
-      id: 3,
-    },
+    { id: "latest", title: "جدیدترین" },
+    { id: "oldest", title: "قدیمی‌ترین" },
+    { id: "quantity", title: "تعداد" },
   ];
+
   const categoryOptions = [
-    {
-      id: 1,
-      title: "دسته بندی اول",
-      desc: "first desc",
-    },
-    {
-      id: 2,
-      title: "دسته بندی دوم",
-      desc: "second desc",
-    },
-    {
-      id: 3,
-      title: "دسته بندی سوم",
-      desc: "third desc",
-    },
-    {
-      id: 4,
-      title: "دسته بندی چهارم",
-      desc: "fourth desc",
-    },
+    { id: "all", title: "همه دسته‌ها" },
+    ...category.map((category) => ({
+      id: String(category.id),
+      title: category.title,
+    })),
   ];
 
   return (
-    <div className="flex items-center justify-between flex-col mb-2 py-2 px-4">
-      <RHFSelect
-        register={register}
+    <div className="flex flex-col gap-3 mb-2 py-2 px-4">
+      <Select
         name="sort"
-        additonalLabelCls="text-secondary-400 flex-1"
-        additonalCls="flex items-center justify-center w-full"
-        specialClass="flex-1"
-        label="مرتب سازی"
+        label="مرتب‌سازی"
+        defaultText="یک گزینه را انتخاب کنید"
         options={sortOptions}
-      />
-      <RHFSelect
-        register={register}
-        name="categorySort"
-        additonalLabelCls="text-secondary-400 flex-1"
+        value={sortOption}
+        onChange={(e) => onSortChange(e.target.value)}
         additonalCls="flex items-center justify-center w-full"
         specialClass="flex-1"
-        label="دسته بندی"
+        additonalLabelCls="text-secondary-0 flex-1"
+      />
+
+      <Select
+        name="categorySort"
+        label="دسته‌بندی"
+        defaultText="یک گزینه را انتخاب کنید"
         options={categoryOptions}
+        value={selectedCategory}
+        onChange={(e) => onCategoryChange(e.target.value)}
+        additonalCls="flex items-center justify-center w-full"
+        specialClass="flex-1"
+        additonalLabelCls="text-secondary-0 flex-1"
       />
     </div>
   );

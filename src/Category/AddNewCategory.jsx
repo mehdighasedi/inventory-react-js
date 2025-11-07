@@ -3,9 +3,12 @@ import TextField from "../ui/TextField";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useCategory } from "../Context/CategoryContext";
+import Modal from "../Modal/Modal";
+import Table from "./CategoryTable";
 
 function AddNewCategory() {
   const [isOpen, setIsOpen] = useState(false);
+  const [openModal, setIsOpenModal] = useState(false);
   const { category, dispatch } = useCategory();
 
   const {
@@ -28,12 +31,22 @@ function AddNewCategory() {
     setIsOpen(false);
   };
 
+  const handleDelete = (id) => {
+    dispatch({ type: "REMOVE_CATEGORY", payload: id });
+  };
+
+  const handleEdit = (updatedCategory) => {
+    dispatch({ type: "UPDATE_CATEGORY", payload: updatedCategory });
+  };
+
   return (
     <div>
       <div className="mb-6">
         {isOpen && (
           <div>
-            <h2 className="text-secondary-300 font-bold text-xl mb-3">اضافه کردن دسته بندی جدید</h2>
+            <h2 className="text-secondary-300 font-bold text-xl mb-3 border-r-2 px-3">
+              اضافه کردن دسته بندی جدید
+            </h2>
             <form
               className="bg-secondary-700 p-4 rounded-xl w-screen-sm flex flex-col gap-y-4"
               onSubmit={handleSubmit(onSubmit)}
@@ -76,12 +89,26 @@ function AddNewCategory() {
           </div>
         )}
       </div>
-      {!isOpen && (
-        <button onClick={() => setIsOpen((is) => !is)} className="btn btn--secondary mb-6 ml-4">
-          دسته بندی جدید
-        </button>
-      )}
-      {!isOpen && <button className="btn btn--secondary mb-6">مدیریت دسته بندی ها</button>}
+      <div>
+        {!isOpen && (
+          <button onClick={() => setIsOpen((is) => !is)} className="btn btn--secondary mb-6 ml-4">
+            دسته بندی جدید
+          </button>
+        )}
+        {!isOpen && (
+          <button onClick={() => setIsOpenModal(true)} className="btn btn--secondary mb-6">
+            مدیریت دسته بندی ها
+          </button>
+        )}
+        <Modal title="مدیریت دسته بندی ها" isOpenModal={openModal} setIsOpenModal={setIsOpenModal}>
+          <Table
+            categories={category}
+            key={category.id}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </Modal>
+      </div>
     </div>
   );
 }

@@ -1,28 +1,32 @@
-function RHFSelect({
+function Select({
   name,
   label,
   additonalCls,
   specialClass,
   required,
   options,
-  register,
   additonalLabelCls,
   onChange,
+  defaultText,
+  value, 
 }) {
   return (
     <div className={additonalCls}>
-      <label className={`mb-2 text-secondary-700 ${additonalLabelCls}  `} htmlFor={name}>
+      <label className={`mb-2 text-secondary-700 ${additonalLabelCls}`} htmlFor={name}>
         {label} {required && <span className="text-error">*</span>}
       </label>
+
       <select
+        id={name}
         onChange={onChange}
         className={`textField__input mb-4 ${specialClass}`}
-        {...register(name)}
-        id={name}
+        value={value}
       >
-        <option value="">یک گزینه را انتخاب کنید</option>
+        <option value="" disabled>
+          {defaultText}
+        </option>
         {options.map((option) => (
-          <option key={option.id} value={option.title}>
+          <option key={option.id} value={option.id}>
             {option.title}
           </option>
         ))}
@@ -31,4 +35,4 @@ function RHFSelect({
   );
 }
 
-export default RHFSelect;
+export default Select;

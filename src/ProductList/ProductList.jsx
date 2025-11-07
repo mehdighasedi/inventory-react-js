@@ -1,24 +1,79 @@
-import { useForm } from "react-hook-form";
-import TextField from "../ui/TextField";
 import Sort from "./Sort";
 import ProductItems from "./ProductItems";
+import { useCategory } from "../Context/CategoryContext";
+import { useProducts } from "../Context/ProductContext";
+import { useMemo, useState } from "react";
 
 function ProductList() {
-  const { register, handleSubmit } = useForm();
+  const { products } = useProducts();
+  const { category } = useCategory();
+
+  const [search, setSearch] = useState("");
+  const [sortOption, setSortOption] = useState("latest");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const filteredProducts = useMemo(() => {
+    let result = [...products];
+
+    if (search.trim()) {
+      result = result.filter((p) => p.title.toLowerCase().includes(search.toLowerCase()));
+    }
+
+    if (selectedCategory !== "all") {
+      const selectedCat = category.find((c) => String(c.id) === String(selectedCategory));
+      const selectedCatTitle = selectedCat?.title?.trim();
+
+      if (selectedCatTitle) {
+        result = result.filter((p) => p.category?.trim() === selectedCatTitle);
+      }
+    }
+
+    switch (sortOption) {
+      case "latest":
+        result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        break;
+      case "oldest":
+        result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        break;
+      case "quantity":
+        result.sort((a, b) => Number(b.quantity) - Number(a.quantity));
+        break;
+      default:
+        break;
+    }
+
+    return result;
+  }, [products, search, sortOption, selectedCategory, category]);
+
   return (
     <div>
-      <h2 className="text-secondary-400 font-bold text-xl mb-2">لیست محصولات</h2>
+      <h3 className="mb-2 p-2 text-secondary-0 border-r-2">فیلترها</h3>
 
       <div className="flex items-center justify-between py-2 px-4">
-        <label htmlFor="search-input" className="text-slate-500 font-bold">
+        <label htmlFor="search-input" className="text-secondary-0">
           جستجو
         </label>
-        <TextField register={register} label="" name="search" />
+        <input
+          id="search-input"
+          type="text"
+          className="textField__input w-1/2"
+          placeholder="جستجو..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
-      <Sort />
-      <div className="border-b mb-8"></div>
-      <ProductItems />
+      <Sort
+        category={category}
+        sortOption={sortOption}
+        selectedCategory={selectedCategory}
+        onSortChange={setSortOption}
+        onCategoryChange={setSelectedCategory}
+      />
+
+      <div className="border-b mb-8 pb-4 text-secondary-400 font-bold">لیست محصولات</div>
+
+      <ProductItems filteredProducts={filteredProducts} />
     </div>
   );
 }
