@@ -62,7 +62,6 @@ function CategoryTable({ categories, onDelete, onEdit }) {
         </tbody>
       </table>
 
-      {/* Modal ویرایش */}
       {editingCategory && (
         <Modal
           isOpenModal={!!editingCategory}
