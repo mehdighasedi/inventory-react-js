@@ -1,5 +1,5 @@
 function Modal({ isOpenModal, setIsOpenModal, title, children }) {
-  if (!isOpenModal) return null; 
+  if (!isOpenModal) return null;
 
   const handleBackdropClick = (e) => {
     if (e.target.id === "modal-backdrop") {
@@ -10,7 +10,7 @@ function Modal({ isOpenModal, setIsOpenModal, title, children }) {
   return (
     <div
       id="modal-backdrop"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center  backdrop-blur-sm"
       onClick={handleBackdropClick}
     >
       <div

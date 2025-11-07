@@ -1,4 +1,17 @@
+import { useState } from "react";
+import { HiInformationCircle, HiPencil, HiTrash } from "react-icons/hi";
+import Modal from "../Modal/Modal";
+import ProductInfo from "./ProductInfo";
+
 function ProductItems({ filteredProducts }) {
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const handleShowInfo = (product) => {
+    setSelectedProduct(product);
+    setOpenModal(true);
+  };
+
   return (
     <div>
       {filteredProducts.map((product) => (
@@ -14,12 +27,30 @@ function ProductItems({ filteredProducts }) {
             <span className="flex items-center justify-center bg-slate-500 text-slate-300 text-slate-300 border-2 border-slate-300 w-7 h-7 rounded-full p-2">
               {product.quantity}
             </span>
-            <button className="delete-product border-2 border-red-400  text-red-400 px-2 py-0.5 rounded-2xl hover:text-red-400 transition-colors duration-200 ease-in hover:bg-white">
-              🗑حذف
+            <button className="flex items-center justify-center gap-x-2 border-2 border-red-400  text-red-400 px-2 py-0.5 rounded-2xl hover:text-red-400 transition-colors duration-200 ease-in hover:bg-white">
+              <HiTrash /> حذف
             </button>
-            <button className="edit-product border-2 border-yellow-400  text-yellow-400 px-2 py-0.5 rounded-2xl hover:text-red-400 transition-colors duration-200 ease-in hover:bg-white">
-              ویرایش ✏
+            <button className="flex items-center justify-center gap-x-2 border-2 border-yellow-400  text-yellow-400 px-2 py-0.5 rounded-2xl hover:text-red-400 transition-colors duration-200 ease-in hover:bg-white">
+              <HiPencil />
+              ویرایش
             </button>
+            <button
+              onClick={() => handleShowInfo(product)}
+              className="gap-x-2 border-2 border-yellow-400  text-yellow-400 px-2 py-0.5 rounded-2xl hover:text-red-400 transition-colors duration-200 ease-in hover:bg-white flex items-center justify-center"
+            >
+              <HiInformationCircle />
+              اطلاعات
+            </button>
+
+            {selectedProduct && (
+              <Modal
+                isOpenModal={openModal}
+                setIsOpenModal={setOpenModal}
+                title={`اطلاعات مربوط به ${selectedProduct.title}`}
+              >
+                <ProductInfo product={selectedProduct} />
+              </Modal>
+            )}
           </div>
         </div>
       ))}
