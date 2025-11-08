@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "../Modal/Modal";
+import toast from "react-hot-toast";
 
 function CategoryTable({ categories, onDelete, onEdit }) {
   const [editingCategory, setEditingCategory] = useState(null);
@@ -16,11 +17,16 @@ function CategoryTable({ categories, onDelete, onEdit }) {
   };
 
   const handleConfirmEdit = () => {
+    if (!newTitle.trim() || !newDesc.trim()) {
+      toast.error("تمامی فیلد ها باید وارد شوند");
+      return;
+    }
     onEdit({
       ...editingCategory,
       title: newTitle,
       description: newDesc,
     });
+    toast.success("ویرایش دسته بندی با موفقیت انجام شد");
     setEditingCategory(null);
   };
 
@@ -39,7 +45,7 @@ function CategoryTable({ categories, onDelete, onEdit }) {
         <tbody className="bg-secondary-700 text-secondary-200">
           {categories.map((cat, index) => (
             <tr key={cat.id} className="border-b border-secondary-500">
-              <td className="p-3">{index + 1}</td>
+              <td className="p-3 ">{index + 1}</td>
               <td className="p-3">{cat.title}</td>
               <td className="p-3">{cat.description}</td>
               <td className="p-3">{new Date(cat.createdAt).toLocaleDateString("fa-IR")}</td>

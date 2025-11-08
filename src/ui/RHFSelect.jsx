@@ -22,7 +22,7 @@ function RHFSelect({
       >
         <option value="">یک گزینه را انتخاب کنید</option>
         {options.map((option) => (
-          <option key={option.id} value={option.title}>
+          <option key={option.id} value={option.id}>
             {option.title}
           </option>
         ))}

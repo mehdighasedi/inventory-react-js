@@ -5,11 +5,13 @@ import toast from "react-hot-toast";
 import { useCategory } from "../Context/CategoryContext";
 import Modal from "../Modal/Modal";
 import Table from "./CategoryTable";
+import { useProducts } from "../Context/ProductContext";
 
 function AddNewCategory() {
   const [isOpen, setIsOpen] = useState(false);
   const [openModal, setIsOpenModal] = useState(false);
   const { category, dispatch } = useCategory();
+  const { dispatch: productDispatch } = useProducts();
 
   const {
     register,
@@ -37,6 +39,8 @@ function AddNewCategory() {
 
   const handleEdit = (updatedCategory) => {
     dispatch({ type: "UPDATE_CATEGORY", payload: updatedCategory });
+
+    productDispatch({ type: "UPDATE_PRODUCT_CATEGORY", payload: updatedCategory });
   };
 
   return (

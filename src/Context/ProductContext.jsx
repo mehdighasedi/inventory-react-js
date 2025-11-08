@@ -13,6 +13,12 @@ function productReducer(state, action) {
       return state.map((products) =>
         products.id === action.payload.id ? { ...products, ...action.payload } : products,
       );
+    case "UPDATE_PRODUCT_CATEGORY":
+      return state.map((product) =>
+        product.category.id === action.payload.id
+          ? { ...product, category: action.payload }
+          : product,
+      );
     default:
       throw new Error("خطایی رخ داده است");
   }

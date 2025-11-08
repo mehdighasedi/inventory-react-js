@@ -1,4 +1,3 @@
-import React from "react";
 
 function ProductInfo({ product }) {
   console.log(product);

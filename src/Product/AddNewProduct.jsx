@@ -8,7 +8,6 @@ import { useCategory } from "../Context/CategoryContext";
 function AddNewProduct() {
   const { products, dispatch } = useProducts();
   const { category } = useCategory();
-
   const {
     register,
     handleSubmit,
@@ -44,15 +43,17 @@ function AddNewProduct() {
       productTitle: title,
       productQuantity: quantity,
       productDesc: description,
-      category,
+      category: selectedCategoryId,
     } = data;
+
+    const selectedCategory = category.find((cat) => String(cat.id) === String(selectedCategoryId));
 
     const newProducts = {
       id: Date.now(),
       title,
       quantity,
       description,
-      category,
+      category: selectedCategory,
       createdAt: new Date().toISOString(),
     };
     dispatch({ type: "ADD_PRODUCTS", payload: newProducts });

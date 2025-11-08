@@ -7,6 +7,7 @@ function TextField({
   register,
   errors,
   type = "text",
+  value = "",
 }) {
   return (
     <div>
@@ -19,6 +20,7 @@ function TextField({
         type={type}
         className="textField__input"
         autoComplete="off"
+        defaultValue={value}
       />
       {errors && errors[name] && (
         <span className="text-error block text-sm mt-2">{errors[name]?.message}</span>

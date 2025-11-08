@@ -3,14 +3,24 @@ import ProductItems from "./ProductItems";
 import { useCategory } from "../Context/CategoryContext";
 import { useProducts } from "../Context/ProductContext";
 import { useMemo, useState } from "react";
+import toast from "react-hot-toast";
 
 function ProductList() {
-  const { products } = useProducts();
+  const { products, dispatch } = useProducts();
   const { category } = useCategory();
 
   const [search, setSearch] = useState("");
   const [sortOption, setSortOption] = useState("latest");
   const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const handleDeleteProduct = (id) => {
+    dispatch({ type: "REMOVE_PRODUCTS", payload: id });
+    toast.success("محصول با موفقیت حذف شد");
+  };
+
+  const handleUpdateProduct = (updatedProduct) => {
+    dispatch({ type: "UPDATE_PRODUCTS", payload: updatedProduct });
+  };
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -73,7 +83,12 @@ function ProductList() {
 
       <div className="border-b mb-8 pb-4 text-secondary-400 font-bold">لیست محصولات</div>
 
-      <ProductItems filteredProducts={filteredProducts} />
+      <ProductItems
+        filteredProducts={filteredProducts}
+        onDelete={handleDeleteProduct}
+        onUpdate={handleUpdateProduct}
+        category={category}
+      />
     </div>
   );
 }
