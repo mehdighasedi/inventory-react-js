@@ -44,15 +44,15 @@ function AddNewCategory() {
   };
 
   return (
-    <div>
+    <div className="p-4">
       <div className="mb-6">
         {isOpen && (
           <div>
-            <h2 className="text-secondary-300 font-bold text-xl mb-3 border-r-2 px-3">
+            <h2 className="text-secondary-300 dark:text-secondary-100 font-bold text-xl mb-3 border-r-2 border-r-secondary-0 px-3">
               اضافه کردن دسته بندی جدید
             </h2>
             <form
-              className="bg-secondary-700 p-4 rounded-xl w-screen-sm flex flex-col gap-y-4"
+              className="bg-secondary-200 dark:bg-secondary-800 p-4 rounded-xl w-screen-sm flex flex-col gap-y-4"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div>
@@ -61,7 +61,7 @@ function AddNewCategory() {
                   name="categoryTitle"
                   label="عنوان دسته بندی"
                   register={register}
-                  AddationalCls="block text-lg mb-1 font-bold text-slate-300 text-right"
+                  AddationalCls="block text-lg mb-1 font-bold text-secondary-900 dark:text-secondary-100 text-right"
                   validationSchema={{
                     required: "عنوان دسته بندی ضروری است",
                   }}
@@ -74,7 +74,7 @@ function AddNewCategory() {
                   name="categoryDesc"
                   label="توضیحات دسته بندی"
                   register={register}
-                  AddationalCls="block text-lg mb-1 font-bold text-slate-300 text-right"
+                  AddationalCls="block text-lg mb-1 font-bold text-secondary-900 dark:text-secondary-100 text-right"
                   validationSchema={{
                     required: "توضیحات دسته بندی ضروری است",
                   }}

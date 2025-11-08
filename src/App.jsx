@@ -15,27 +15,18 @@ function App() {
       <ProductProvider>
         <DarkModeProvider>
           <FontWrapper>
-            <div>
+            <div className="bg-secondary-100 dark:bg-secondary-800 text-secondary-900 dark:text-secondary-100 min-h-screen transition-colors duration-300">
               <Toaster />
-
               <Modal />
-              <div className="bg-secondary-800 min-h-screen">
-                {/* <!-- Header section --> */}
-                <Header />
-                {/* <!-- App Content --> */}
-                <div className="container max-w-screen-sm mx-auto ">
-                  {/* <!-- Category Section --> */}
-                  <AddNewCategory />
-                  {/* <!-- Product Section --> */}
-                  <AddNewProduct />
-                  {/* <!-- Product List Section --> */}
-                  <div>
-                    <ProductList />
-                  </div>
 
-                  <div id="products-list"></div>
-                  <div className="h-40"></div>
-                </div>
+              {/* Header */}
+              <Header />
+
+              {/* Main Content */}
+              <div className="container max-w-screen-md mx-auto px-4 py-6 space-y-6">
+                <AddNewCategory />
+                <AddNewProduct />
+                <ProductList />
               </div>
             </div>
           </FontWrapper>

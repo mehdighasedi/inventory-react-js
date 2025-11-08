@@ -8,11 +8,11 @@ function Select({
   additonalLabelCls,
   onChange,
   defaultText,
-  value, 
+  value,
 }) {
   return (
     <div className={additonalCls}>
-      <label className={`mb-2 text-secondary-700 ${additonalLabelCls}`} htmlFor={name}>
+      <label className={`mb-2 text-secondary-0 ${additonalLabelCls}`} htmlFor={name}>
         {label} {required && <span className="text-error">*</span>}
       </label>
 

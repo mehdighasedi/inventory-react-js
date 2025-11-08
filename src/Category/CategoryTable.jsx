@@ -75,7 +75,7 @@ function CategoryTable({ categories, onDelete, onEdit }) {
           title="ویرایش دسته بندی"
         >
           <div className="flex flex-col gap-4">
-            <label className="text-secondary-100 font-bold text-right">عنوان جدید</label>
+            <label className="text-secondary-0 font-bold text-right">عنوان جدید</label>
             <input
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
@@ -83,7 +83,7 @@ function CategoryTable({ categories, onDelete, onEdit }) {
               placeholder="عنوان دسته بندی"
             />
 
-            <label className="text-secondary-100 font-bold text-right">توضیحات جدید</label>
+            <label className="text-secondary-0 font-bold text-right">توضیحات جدید</label>
             <textarea
               value={newDesc}
               onChange={(e) => setNewDesc(e.target.value)}

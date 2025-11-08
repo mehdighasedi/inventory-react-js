@@ -15,29 +15,6 @@ function AddNewProduct() {
     formState: { errors },
   } = useForm();
 
-  // const options = [
-  //   {
-  //     id: 1,
-  //     title: "دسته بندی اول",
-  //     desc: "first desc",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "دسته بندی دوم",
-  //     desc: "second desc",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "دسته بندی سوم",
-  //     desc: "third desc",
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "دسته بندی چهارم",
-  //     desc: "fourth desc",
-  //   },
-  // ];
-
   const onSubmit = (data) => {
     const {
       productTitle: title,
@@ -45,7 +22,6 @@ function AddNewProduct() {
       productDesc: description,
       category: selectedCategoryId,
     } = data;
-
     const selectedCategory = category.find((cat) => String(cat.id) === String(selectedCategoryId));
 
     const newProducts = {
@@ -62,11 +38,11 @@ function AddNewProduct() {
 
   return (
     <div className="mb-6">
-      <h2 className="text-secondary-400 font-bold text-xl mb-3 px-3 border-r-2">
+      <h2 className="text-secondary-700 dark:text-secondary-200 font-bold text-xl mb-3 px-3 border-r-2 border-r-secondary-0">
         اضافه کردن محصول جدید
       </h2>
       <form
-        className="bg-secondary-700 p-4 rounded-xl w-screen-sm flex flex-col gap-y-4"
+        className="bg-secondary-100 dark:bg-secondary-700 p-4 rounded-xl w-screen-sm flex flex-col gap-y-4 transition-colors duration-300"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
@@ -75,10 +51,8 @@ function AddNewProduct() {
             name="productTitle"
             label="عنوان محصول"
             register={register}
-            AddationalCls="block text-lg mb-1 font-bold text-slate-300 text-right"
-            validationSchema={{
-              required: "عنوان محصول ضروری است",
-            }}
+            AddationalCls="block text-lg mb-1 font-bold text-secondary-900 dark:text-secondary-100 text-right"
+            validationSchema={{ required: "عنوان محصول ضروری است" }}
             errors={errors}
           />
         </div>
@@ -89,10 +63,8 @@ function AddNewProduct() {
             label="تعداد محصول"
             type="number"
             register={register}
-            AddationalCls="block text-lg mb-1 font-bold text-slate-300 text-right"
-            validationSchema={{
-              required: "تعداد محصول ضروری است",
-            }}
+            AddationalCls="block text-lg mb-1 font-bold text-secondary-900 dark:text-secondary-100 text-right"
+            validationSchema={{ required: "تعداد محصول ضروری است" }}
             errors={errors}
           />
         </div>
@@ -102,10 +74,8 @@ function AddNewProduct() {
             name="productDesc"
             label="توضیحات محصول"
             register={register}
-            AddationalCls="block text-lg mb-1 font-bold text-slate-300 text-right"
-            validationSchema={{
-              required: "توضیحات محصول ضروری است",
-            }}
+            AddationalCls="block text-lg mb-1 font-bold text-secondary-900 dark:text-secondary-100 text-right"
+            validationSchema={{ required: "توضیحات محصول ضروری است" }}
             errors={errors}
           />
         </div>
@@ -116,14 +86,23 @@ function AddNewProduct() {
             required
             name="category"
             options={category}
-            additonalLabelCls="block text-lg mb-1 font-bold text-slate-300 text-right"
+            additonalLabelCls="block text-lg mb-1 font-bold text-secondary-900 dark:text-secondary-100 text-right"
           />
         </div>
-        <div className="flex items-center justify-between gap-x-4">
-          <button onClick={() => reset()} className="flex-1 btn btn--secondary">
-            لفو
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={() => reset()}
+            className="flex-1 btn btn--secondary bg-secondary-300 dark:bg-secondary-600 text-secondary-900 dark:text-secondary-100 hover:bg-secondary-400 dark:hover:bg-secondary-500 transition-colors duration-200"
+          >
+            لغو
           </button>
-          <button className="btn btn--primary flex-1 ">اضافه کردن محصول جدید</button>
+          <button
+            type="submit"
+            className="flex-1 btn btn--primary bg-primary-500 dark:bg-primary-700 text-white hover:bg-primary-600 dark:hover:bg-primary-600 transition-colors duration-200"
+          >
+            اضافه کردن محصول جدید
+          </button>
         </div>
       </form>
     </div>

@@ -56,17 +56,19 @@ function ProductList() {
   }, [products, search, sortOption, selectedCategory, category]);
 
   return (
-    <div>
-      <h3 className="mb-2 p-2 text-secondary-0 border-r-2">فیلترها</h3>
+    <div className="bg-secondary-200 dark:bg-secondary-700 p-4 rounded-xl space-y-4 transition-colors duration-300">
+      <h3 className="mb-2 p-2 text-secondary-900 dark:text-secondary-50 font-bold border-r-2 border-r-secondary-0">
+        فیلترها
+      </h3>
 
-      <div className="flex items-center justify-between py-2 px-4">
-        <label htmlFor="search-input" className="text-secondary-0">
+      <div className="flex flex-col sm:flex-row items-center justify-between py-2 px-2 sm:px-4 gap-2">
+        <label htmlFor="search-input" className="text-secondary-900 dark:text-secondary-50">
           جستجو
         </label>
         <input
           id="search-input"
           type="text"
-          className="textField__input w-1/2"
+          className="textField__input w-full sm:w-1/2"
           placeholder="جستجو..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -81,7 +83,9 @@ function ProductList() {
         onCategoryChange={setSelectedCategory}
       />
 
-      <div className="border-b mb-8 pb-4 text-secondary-400 font-bold">لیست محصولات</div>
+      <div className="border-b mb-8 pb-4 text-secondary-500 dark:text-secondary-300 font-bold">
+        لیست محصولات
+      </div>
 
       <ProductItems
         filteredProducts={filteredProducts}
